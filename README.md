@@ -17,6 +17,32 @@ It allows you to manage restaurant reviews — including importing data from a C
 
 ---
 
+## 📦 Required Dependencies
+
+Before running the project, install the following libraries:
+
+```bash
+npm install express mongoose dotenv csv-parser
+```
+
+**Optional (recommended for development):**
+
+```bash
+npm install --save-dev nodemon
+```
+
+These are used as follows:
+
+| Package        | Description                                          |
+| -------------- | ---------------------------------------------------- |
+| **express**    | Creates the HTTP server and defines routes           |
+| **mongoose**   | Connects and interacts with MongoDB                  |
+| **dotenv**     | Loads environment variables from the `.env` file     |
+| **csv-parser** | Reads and parses the `restaurants.csv` file          |
+| **nodemon**    | Automatically restarts the server during development |
+
+---
+
 ## 📁 Project Structure
 
 ```
