@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
-import connectDB from "/Users/selen/Repositorios/NAO_RT4_SP2/db.js";
-import reviewRoutes from "/Users/selen/Repositorios/NAO_RT4_SP2/routes.js";
+import connectDB from "./src/config/db.js";
+import reviewRoutes from "./src/routes/user.routes.js";
 
 dotenv.config();
 

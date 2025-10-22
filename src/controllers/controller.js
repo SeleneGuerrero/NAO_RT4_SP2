@@ -1,4 +1,4 @@
-import User from "./model.js"; // tu modelo de MongoDB
+import User from "../models/user.model.js"; // tu modelo de MongoDB
 
 export const createUser = async (req, res) => {
   try {

@@ -1,7 +1,7 @@
 import express from "express";
 import fs from "fs";
 import csv from "csv-parser";
-import Review from "./model.js";
+import Review from "../models/user.model.js";
 
 const router = express.Router();
 
@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
 router.post("/import", async (req, res) => {
   try {
     const results = [];
-    fs.createReadStream("./restaurants.csv") // Asegúrate que el CSV esté en la misma carpeta
+    fs.createReadStream("./src/restaurants.csv") // Asegúrate que el CSV esté en la misma carpeta
       .pipe(csv({ separator: "\t" })) // Separador de tabulaciones
       .on("data", (data) => {
         // Convertir review_id y rating a números
@@ -74,5 +74,50 @@ router.post("/", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+/* -------------------- Obtener usuario por ID (GET) -------------------- */
+router.get("/:id", async (req, res) => {
+  try {
+    const user = await Review.findById(req.params.id);
+    if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+/* -------------------- Actualizar usuario (PUT) -------------------- */
+router.put("/:id", async (req, res) => {
+  try {
+    const updated = await Review.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!updated) return res.status(404).json({ message: "Review not found" });
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+/* -------------------- Actualizar reseña por ID -------------------- */
+router.put("/:id", async (req, res) => {
+  try {
+    const review = await Review.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!review) return res.status(404).json({ message: "Review not found" });
+    res.json(review);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+/* -------------------- Eliminar usuario (DELETE) -------------------- */
+router.delete("/:id", async (req, res) => {
+  try {
+    const deletedUser = await Review.findByIdAndDelete(req.params.id);
+    if (!deletedUser) return res.status(404).json({ message: "Usuario no encontrado" });
+    res.json({ message: "Usuario eliminado correctamente" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 
 export default router;

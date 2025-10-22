@@ -11,7 +11,7 @@ const reviewSchema = new mongoose.Schema({
   cuisine: { type: String, required: true },
 });
 
-const Review = mongoose.model("restaurants", reviewSchema);
+const Review = mongoose.model("reviews", reviewSchema);
 
 
 export default Review;
